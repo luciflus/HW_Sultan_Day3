@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<form method="POST" action="{% url 'detail' client.id %}">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h3>{{ client.name }}, Гражданство: {{ client.citizenship }}, Дата рождения: {{ client.birth_year }},
+              Место работы: {{ client.work_place }}, Дата обновления: {{ client.update_date }}</h3></legend>
+        {% for account in client.accounts.all %}
+          <li>
+              Сумма кредита: {{ credit.sum }}, Дата получения кредита: {{ credit.date }},
+              Номер аккаунта: {{ account.number }}, Тип аккаунта: {{ account.account_type }}
+          </li>
+        {%endfor%}
+
+        {% for credit in account.credits.all %}
+          <li>Гражданство: {{ account.client.citizenship }}, Дата рождения: {{ account.client.birth_year }},
+              Место работы: {{ account.client.work_place }}, Дата обновления: {{ account.client.update_date }}, Сумма кредита: {{ credit.sum }}, Дата получения кредита: {{ credit.date }}, Номер аккаунта: {{ account.number }}, Тип аккаунта: {{ account.account_type }}</li>
+        {%endfor%}
+    </fieldset>
+</form>
+</body>
+</html>
